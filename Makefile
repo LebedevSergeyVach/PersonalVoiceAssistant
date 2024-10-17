@@ -57,5 +57,5 @@ help-makefile:
 	@echo "run       ->   Launching the Voice Assistant"
 	@echo "pull      ->   Pull project git repository"
 	@echo "install   ->   installing all libraries and packages PIP"
-	@exho "restart   ->   Complete reinstallation of the project"
+	@echo "restart   ->   Complete reinstallation of the project"
 	@echo "help      ->   Help with Makefile commands"
