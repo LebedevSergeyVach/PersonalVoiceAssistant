@@ -54,7 +54,8 @@ full-restart-project: pip_install_lib
 
 help-makefile:
 	@echo "Makefile for PersonalVoiceAssistant"
-	@echo "run       ->   start project"
-	@echo "pull      ->   pull project git repository"
-	@echo "install   ->   pip install lib for project"
-	@echo "help      ->   help commands Makefile"
+	@echo "run       ->   Launching the Voice Assistant"
+	@echo "pull      ->   Pull project git repository"
+	@echo "install   ->   installing all libraries and packages PIP"
+	@exho "restart   ->   Complete reinstallation of the project"
+	@echo "help      ->   Help with Makefile commands"
