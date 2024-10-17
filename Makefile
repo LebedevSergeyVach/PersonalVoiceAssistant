@@ -9,7 +9,7 @@ REQUIREMENTS_FILE = requirements.txt
 
 all: run
 
-run: poetry_run_pva
+run: py_run_pva
 
 install: pip_install_lib
 
@@ -25,6 +25,8 @@ poetry_run_pva:
 	@$(POETRY) $(MAIN_FILE)
 
 pip_install_lib:
+	@venv\Scripts\activate
+	@source venv/bin/activate
 	@pip install -r $(REQUIREMENTS_FILE)
 
 git-repository-pull:
