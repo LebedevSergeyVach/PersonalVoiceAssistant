@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     char command[2048];
     snprintf(command, sizeof(command), "%s %s", python_interpreter, full_script_path);
 
-    printf("RUNNING VOICE ASSISTENT\n");
+    printf("RUNNING VOICE ASSISTANT\n");
 
     int result = system(command);
 
