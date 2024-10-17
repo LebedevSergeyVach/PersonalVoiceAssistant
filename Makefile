@@ -32,6 +32,7 @@ poetry_run_pva:
 	@$(POETRY) $(MAIN_FILE)
 
 pip_install_lib:
+	@echo "Installing all necessary libraries and packages"
 	@pip install -r $(REQUIREMENTS_FILE)
 	@python -m spacy download ru_core_news_sm
 
@@ -39,10 +40,14 @@ git-repository-pull:
 	@git status
 	@git pull
 
-full-restart-project: pip_install_lib
+full-restart-project:
 	@echo "Starting to reinstall the project"
 	@echo "Complete deletion of the project"
-	@cd .. && rm -rf $(NAME_REPOSITORY)
+	@if [ -d $(NAME_REPOSITORY) ]; then \
+		cd .. && rm -rf $(NAME_REPOSITORY); \
+	else \
+		echo "Directory $(NAME_REPOSITORY) does not exist"; \
+	fi
 	@echo "Installing a remote repository on your computer"
 	@cd .. && git clone $(HTTPS)
 	@cd $(NAME_REPOSITORY)
