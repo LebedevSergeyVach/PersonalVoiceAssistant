@@ -42,15 +42,13 @@ git-repository-pull:
 full-restart-project: pip_install_lib
 	@echo "Starting to reinstall the project"
 	@echo "Complete deletion of the project"
-	@cd ..
-	@rm -rf $(NAME_REPOSITORY)
+	@cd .. && rm -rf $(NAME_REPOSITORY)
 	@echo "Installing a remote repository on your computer"
-	@git clone $(HTTPS)
+	@cd .. && git clone $(HTTPS)
 	@cd $(NAME_REPOSITORY)
 	@echo "Installing all necessary libraries and packages"
 	@pip_install_lib
 	@echo "The project is completely reinstalled and ready to work"
-
 
 help-makefile:
 	@echo "Makefile for PersonalVoiceAssistant"
