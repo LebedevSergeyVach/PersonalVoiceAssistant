@@ -63,7 +63,7 @@ full-restart-project:
 	@echo "The project is completely reinstalled and ready to work"
 
 add-path-exe-for-command:
-	echo "Be sure to add this directory to the PATH to call the assistant command"
+	@echo "Be sure to add this directory to the PATH to call the assistant command"
 	@$(GCC) $(C_FILE) -o $(EXE_FILE)
 
 help-makefile:
