@@ -26,6 +26,7 @@ poetry_run_pva:
 
 pip_install_lib:
 	@pip install -r $(REQUIREMENTS_FILE)
+	@python -m spacy download ru_core_news_sm
 
 git-repository-pull:
 	@git status
