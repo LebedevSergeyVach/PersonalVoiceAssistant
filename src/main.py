@@ -5,7 +5,7 @@ import threading
 import queue
 import sys
 
-from parser.parser_weather import hourly_weather_forecast
+from parser.parser_weather import hourly_weather_forecast, detailed_weather_forecast_for_today
 from meta.meta import MetaClass
 
 # Инициализация распознавателя речи
@@ -110,15 +110,38 @@ def main():
                   or 'погоде' in [token.text for token in doc] or 'погоду' in [token.text for token in doc]):
 
                 data, answer, temperature, felt_temperature, description, icon = hourly_weather_forecast()
-                weather_message = f'{answer} {temperature} {felt_temperature} {description} {icon}'
+                data_message = (f'{answer}\n'
+                                f'{temperature}, {felt_temperature}.\n'
+                                f'{description} {icon}'
+                                )
 
-                print(f'Помощник: {weather_message}')
+                print(f'Помощник: {data_message}')
                 # speak(weather_message)
             elif ('время' in [token.text for token in doc] or 'времени' in [token.text for token in doc]
                   or 'дата' in [token.text for token in doc]):
 
                 data, answer, temperature, felt_temperature, description, icon = hourly_weather_forecast()
-                weather_message = f'{data}'
+                data_message = f'{data}'
+
+                print(f'Помощник: {data_message}')
+                # speak(data_message)
+            elif 'прогноз' in [token.text for token in doc]:
+
+                (data,
+                 night_temperature, night_felt_temperature, night_description, night_icon,
+                 morning_temperature, morning_felt_temperature, morning_description, morning_icon,
+                 day_temperature, day_felt_temperature, day_description, day_icon,
+                 evening_temperature, evening_felt_temperature, evening_description, evening_icon,
+                 ) = detailed_weather_forecast_for_today()
+
+                weather_message = (f'{data}\n'
+                                   f'Ночью: {night_temperature}, {night_felt_temperature}, {night_description} {night_icon}\n'
+                                   f'Утром: {morning_temperature}, {morning_felt_temperature}, '
+                                   f'{morning_description} {morning_icon}\n'
+                                   f'Днем: {day_temperature}, {day_felt_temperature}, {day_description} {day_icon}\n'
+                                   f'Вечером: {evening_temperature}, {evening_felt_temperature}, '
+                                   f'{evening_description} {evening_icon}'
+                                   )
 
                 print(f'Помощник: {weather_message}')
                 # speak(weather_message)
