@@ -81,8 +81,8 @@ def main():
     engine.setProperty('rate', voice_speed)  # Скорость речи (слова в минуту)
     engine.setProperty('volume', voice_volume)  # Громкость (от 0.0 до 1.0)
 
-    # speak('Привет! Чем я могу вам помочь?')
     print('Помощник: Привет! Чем я могу вам помочь?')
+    speak('Привет! Чем я могу вам помочь?')
 
     # Запуск потоков
     mic_thread = threading.Thread(target=recognize_speech_from_mic)
@@ -98,11 +98,11 @@ def main():
             # Обработка текста с помощью spaCy
             doc = nlp(text.lower())
             if 'привет' in [token.text for token in doc]:
-                # speak('Привет! Как дела?')
                 print('Помощник: Привет! Как дела?')
+                speak('Привет! Как дела?')
             elif 'пока' in [token.text for token in doc] or 'закрыть' in [token.text for token in doc]:
-                # speak('До свидания!')
                 print('Помощник: До свидания!')
+                speak('До свидания!')
                 stop_threads = True
 
                 break
@@ -110,13 +110,12 @@ def main():
                   or 'погоде' in [token.text for token in doc] or 'погоду' in [token.text for token in doc]):
 
                 data, answer, temperature, felt_temperature, description, icon = hourly_weather_forecast()
-                data_message = (f'{answer}\n'
-                                f'{temperature}, {felt_temperature}.\n'
-                                f'{description} {icon}'
-                                )
+                weather_message = (f'{answer}\n'
+                                   f'{temperature}, {felt_temperature}.\n'
+                                   f'{description} {icon}')
 
-                print(f'Помощник: {data_message}')
-                # speak(weather_message)
+                speak(weather_message)
+                print(f'Помощник: {weather_message}')
             elif ('время' in [token.text for token in doc] or 'времени' in [token.text for token in doc]
                   or 'дата' in [token.text for token in doc]):
 
@@ -124,7 +123,7 @@ def main():
                 data_message = f'{data}'
 
                 print(f'Помощник: {data_message}')
-                # speak(data_message)
+                speak(data_message)
             elif 'прогноз' in [token.text for token in doc]:
 
                 (data,
@@ -135,19 +134,21 @@ def main():
                  ) = detailed_weather_forecast_for_today()
 
                 weather_message = (f'{data}\n'
-                                   f'Ночью: {night_temperature}, {night_felt_temperature}, {night_description} {night_icon}\n'
+                                   f'Ночью: {night_temperature}, {night_felt_temperature}, '
+                                   f'{night_description} {night_icon}\n'
                                    f'Утром: {morning_temperature}, {morning_felt_temperature}, '
                                    f'{morning_description} {morning_icon}\n'
-                                   f'Днем: {day_temperature}, {day_felt_temperature}, {day_description} {day_icon}\n'
+                                   f'Днем: {day_temperature}, {day_felt_temperature}, '
+                                   f'{day_description} {day_icon}\n'
                                    f'Вечером: {evening_temperature}, {evening_felt_temperature}, '
                                    f'{evening_description} {evening_icon}'
                                    )
 
                 print(f'Помощник: {weather_message}')
-                # speak(weather_message)
+                speak(weather_message)
             else:
                 print('Помощник: Извините, я не понимаю вас.')
-                # speak('Извините, я не понимаю вас.')
+                speak('Извините, я не понимаю вас.')
 
     # Ожидание завершения потоков
     mic_thread.join()
