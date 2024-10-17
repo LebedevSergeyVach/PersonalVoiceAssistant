@@ -25,8 +25,6 @@ poetry_run_pva:
 	@$(POETRY) $(MAIN_FILE)
 
 pip_install_lib:
-	@venv\Scripts\activate
-	@source venv/bin/activate
 	@pip install -r $(REQUIREMENTS_FILE)
 
 git-repository-pull:
